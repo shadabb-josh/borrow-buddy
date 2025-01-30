@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_28_055907) do
     t.string "purpose"
     t.date "repayment_till"
     t.float "expected_return"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

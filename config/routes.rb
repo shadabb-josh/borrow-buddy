@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   # CRUD Routes
   resources :admins
   resources :users
+  resources :loans
 
   # Authentication Route
   post "auth/login", to: "authenticate#login"

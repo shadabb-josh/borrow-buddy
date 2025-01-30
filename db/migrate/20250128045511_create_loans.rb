@@ -7,7 +7,7 @@ class CreateLoans < ActiveRecord::Migration[7.2]
       t.float :interest
       t.string :purpose
       t.date :repayment_till
-      t.float :expected_return 
+      t.float :expected_return
       t.integer :status, default: 0
       t.timestamps
     end
