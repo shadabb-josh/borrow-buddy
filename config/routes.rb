@@ -20,5 +20,6 @@ Rails.application.routes.draw do
   resources :transactions
 
   # Authentication Route
-  post "auth/login", to: "authenticate#login"
+  post "auth/admin-login", to: "authenticate#admin_login"
+  post "auth/user-login", to: "authenticate#user_login"
 end
