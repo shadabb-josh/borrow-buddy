@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :users
   resources :loans
   resources :repayments
+  resources :transactions
 
   # Authentication Route
   post "auth/login", to: "authenticate#login"
