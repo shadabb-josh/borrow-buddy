@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # CRUD Routes
   resources :admins
+  resources :users
+
+  # Authentication Route
   post "auth/login", to: "authenticate#login"
 end
