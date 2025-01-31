@@ -1,27 +1,25 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create ]
+  skip_before_action :authenticate_request, only: [ :create, :index, :show ]
   before_action :set_user, only: [ :show, :destroy, :update, :change_password ]
 
   # GET /users
   def index
     @users = User.all
-    render json: @users.as_json(
-    except: [ :password_digest, :created_at, :updated_at ]
-    ),
+    render json: @users, each_serializer: UserSerializer,
     status: :ok
   end
 
   # GET /users/{id}
   def show
-    render json: @user, status: :ok
+    render json: @user, serialize: UserSerializer,
+    status: :ok
   end
 
   # POST /users
   def create
     @user = User.create(user_params)
     if @user.save
-      render json: @user.as_json(
-      except: [ :password_digest, :created_at, :updated_at ]),
+      render json: @user, serialize: UserSerializer,
       status: :ok
     else
       render json: { errors: @user.errors.full_messages },
@@ -32,11 +30,11 @@ class UsersController < ApplicationController
   # UPDATE /users/{id}
   def update
     if @user.update(user_params)
-      render json: @user, status: :ok
-    else
-      render json: { errors: @user.errors.full_messages },
-             status: :unprocessable_entity
+      render json: @user, serialize: UserSerializer,
+      status: :ok
     end
+    render json: { errors: @user.errors.full_messages },
+           status: :unprocessable_entity
   end
 
   # DELETE /users/{id}
@@ -54,14 +52,14 @@ class UsersController < ApplicationController
   def change_password
     if @user.authenticate(change_password_params[:old_password])
       if @user.update(password: change_password_params[:new_password])
-        render json: { message: "password changed successfully" },
+        render json: { message: "Password changed successfully" },
         status: :ok
       else
-        render json: { message: "failed to change passeord" },
+        render json: { message: "Failed to change passeord" },
         status: :unprocessable_entity
       end
     else
-      render json: { message: "incorrect old password" },
+      render json: { message: "Incorrect old password" },
        status: :unauthorized
     end
   end
@@ -79,6 +77,6 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render josn: { error: "User not found" }, status: :not_found
+    render json: { error: "User not found" }, status: :not_found
   end
 end

@@ -28,6 +28,6 @@ class TransactionsController < ApplicationController
     def set_repayment
       @transaction = Transaction.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render josn: { error: "Transaction not found" }, status: :not_found
+      render json: { error: "Transaction not found" }, status: :not_found
     end
 end

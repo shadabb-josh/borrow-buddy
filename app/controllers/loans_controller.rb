@@ -22,14 +22,21 @@ class LoansController < ApplicationController
   end
 
   def update
-    unless @loan.update(set_params)
+    if @loan.update(set_params)
+      render json: @loan, status: :ok
+    end
       render json: { errors: @loan.errors.full_messages },
              status: :unprocessable_entity
-    end
   end
 
   def destroy
-    @loan.destroy
+    if @loan.destroy
+      render json: { message: "Loan deleted sucessfully" },
+             status: :ok
+    else
+      render json: { message: "Fail to delete loan" },
+             status: :unprocessable_entity
+    end
   end
 
   private
@@ -40,6 +47,6 @@ class LoansController < ApplicationController
     def set_loan
       @loan = Loan.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render josn: { error: "loan not found" }, status: :not_found
+      render json: { error: "Loan not found" }, status: :not_found
     end
 end
