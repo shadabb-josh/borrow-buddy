@@ -44,5 +44,7 @@ class AdminsController < ApplicationController
 
     def set_admin
       @admin = Admin.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render josn: { error: "Admin not found" }, status: :not_found
     end
 end

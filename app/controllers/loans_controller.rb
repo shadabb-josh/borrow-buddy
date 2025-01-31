@@ -39,5 +39,7 @@ class LoansController < ApplicationController
 
     def set_loan
       @loan = Loan.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render josn: { error: "loan not found" }, status: :not_found
     end
 end
