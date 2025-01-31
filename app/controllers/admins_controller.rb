@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
     render json: @admins, status: :ok
   end
 
-  # GET /admins/{username}
+  # GET /admins/{id}
   def show
     render json: @admin, status: :ok
   end
@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
     end
   end
 
-  # UPDATE /admins/{username}
+  # UPDATE /admins/{id}
   def update
     unless @admin.update(user_params)
       render josn: { errors: @admin.errors.full_messages },
@@ -32,7 +32,7 @@ class AdminsController < ApplicationController
     end
   end
 
-  # DELETE /admins/{username}
+  # DELETE /admins/{id}
   def destroy
     @admin.destroy
   end
