@@ -22,4 +22,7 @@ Rails.application.routes.draw do
   # Authentication Route
   post "auth/admin-login", to: "authenticate#admin_login"
   post "auth/user-login", to: "authenticate#user_login"
+
+  # Change-password Route
+  patch "users/change_password", to: "users#change_password"
 end
