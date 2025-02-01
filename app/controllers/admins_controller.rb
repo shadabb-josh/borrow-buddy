@@ -26,15 +26,22 @@ class AdminsController < ApplicationController
 
   # UPDATE /admins/{id}
   def update
-    unless @admin.update(user_params)
-      render josn: { errors: @admin.errors.full_messages },
-             status: :unprocessable_entity
+    if @admin.update(user_params)
+      render json: @admin, status: :ok
     end
+      render json: { errors: @admin.errors.full_messages },
+             status: :unprocessable_entity
   end
 
   # DELETE /admins/{id}
   def destroy
-    @admin.destroy
+    if @admin.destroy
+      render json: { message: "Admin deleted successfully" },
+      status: :ok
+    else
+      render json: { message: "Fail to delete admin" },
+      status: :unprocessable_entity
+    end
   end
 
   private
@@ -44,5 +51,7 @@ class AdminsController < ApplicationController
 
     def set_admin
       @admin = Admin.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Admin not found" }, status: :not_found
     end
 end

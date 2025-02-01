@@ -27,5 +27,7 @@ class RepaymentsController < ApplicationController
 
     def set_repayment
       @repayment = Repayment.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Repayment not found" }, status: :not_found
     end
 end

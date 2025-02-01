@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   # CRUD Routes
   resources :admins
-  resources :users
+  resources :users do
+    member do
+      patch :change_password
+    end
+  end
   resources :loans
   resources :repayments
   resources :transactions
