@@ -1,5 +1,5 @@
 class LoansController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create, :show, :index ]
+  skip_before_action :authenticate_request, only: [ :create ]
   before_action :set_loan, only: [ :show, :update, :destroy ]
 
   def index
@@ -13,7 +13,6 @@ class LoansController < ApplicationController
 
   def create
     @loan = Loan.create(set_params)
-    LoanSerializer.new(@loan)
 
     if @loan.save
       render json: @loan, serialize: LoanSerializer, status: :ok

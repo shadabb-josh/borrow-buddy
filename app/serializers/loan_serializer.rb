@@ -5,9 +5,11 @@ class LoanSerializer < ActiveModel::Serializer
 
   # Total Return Principle Amount + Interest
   def total_return
-    target_date = object.repayment_till
-    current_date = Date.today
-    days = (target_date - current_date)
-    object.amount + (object.amount * (0.12/365) * days).round(2)
+    object.calculate_returns(object.repayment_till, object.amount, object.interest, true)
+  end
+
+  # Interest on Principle Amount
+  def expected_return
+    object.calculate_returns(object.repayment_till, object.amount, object.interest)
   end
 end
