@@ -4,17 +4,18 @@ class LoansController < ApplicationController
 
   def index
     @loans = Loan.all
-    render json: @loans, status: :ok
+    render json: @loans, each_serializer: LoanSerializer, status: :ok
   end
 
   def show
-    render json: @loan, status: :ok
+    render json: @loan, serializer: LoanSerializer, status: :ok
   end
 
   def create
     @loan = Loan.create(set_params)
+
     if @loan.save
-      render json: @loan, status: :ok
+      render json: @loan, serialize: LoanSerializer, status: :ok
     else
       render json: { errors: @loan.errors.full_messages },
              status: :unprocessable_entity
@@ -23,12 +24,11 @@ class LoansController < ApplicationController
 
   def update
     if @loan.update(set_params)
-      render json: @loan, status: :ok
+      render json: @loan, serialize: LoanSerializer, status: :ok
     end
       render json: { errors: @loan.errors.full_messages },
              status: :unprocessable_entity
   end
-
   def destroy
     if @loan.destroy
       render json: { message: "Loan deleted sucessfully" },
