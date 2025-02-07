@@ -1,23 +1,20 @@
 class TransactionsController < ApplicationController
-  before_action :set_repayment, only: [ :show ]
+  before_action :set_transaction, only: [ :show ]
 
   def index
     @transactions = Transaction.all
-    render json: @transactions, status: :ok
+    render json: { transactions: @transactions }, status: :ok
   end
 
   def show
-    render json: @transaction, status: :ok
+    render json: { transaction: @transaction }, status: :ok
   end
 
   def create
-    @transaction = Transaction.create(set_params)
-    if @transaction.save
-      render json: @transaction, status: :ok
-    else
-      render json: { errors: @transaction.errors.full_messages },
-             status: :unprocessable_entity
-    end
+    @transaction = TransactionService.create_transaction(set_params)
+    render json: { transaction: @transaction }, status: :ok
+  rescue StandardError => e
+    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   private
@@ -25,9 +22,9 @@ class TransactionsController < ApplicationController
       params.permit(:user_id, :loan_id, :amount, :transaction_type)
     end
 
-    def set_repayment
+    def set_transaction
       @transaction = Transaction.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: { error: "Transaction not found" }, status: :not_found
+      render json: { error: I18n.t("responses.transactions.not_found") }, status: :not_found
     end
 end

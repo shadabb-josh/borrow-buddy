@@ -4,49 +4,44 @@ class LoansController < ApplicationController
 
   def index
     @loans = Loan.all
-    render json: @loans, each_serializer: LoanSerializer, status: :ok
+    render json: { loans: @loans }, each_serializer: LoanSerializer, status: :ok
   end
 
   def show
-    render json: @loan, serializer: LoanSerializer, status: :ok
+    render json: { loan: @loan }, serializer: LoanSerializer, status: :ok
   end
 
   def create
-    @loan = Loan.create(set_params)
-
-    if @loan.save
-      render json: @loan, serialize: LoanSerializer, status: :ok
-    else
-      render json: { errors: @loan.errors.full_messages },
-             status: :unprocessable_entity
-    end
+    @loan = LoanService.create_loan(loan_params)
+    render json: { loan:  @loan }, serializer: LoanSerializer, status: :ok
+  rescue StandardError => e
+    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   def update
-    if @loan.update(set_params)
-      render json: @loan, serialize: LoanSerializer, status: :ok
-    end
-      render json: { errors: @loan.errors.full_messages },
-             status: :unprocessable_entity
+    loan = LoanService.update_loan(@loan, loan_params)
+    render json: { loan: loan }, serializer: LoanSerializer, status: :ok
+  rescue StandardError => e
+    render json: { errors: e.message }, status: :unprocessable_entity
   end
+
   def destroy
-    if @loan.destroy
-      render json: { message: "Loan deleted sucessfully" },
-             status: :ok
-    else
-      render json: { message: "Fail to delete loan" },
-             status: :unprocessable_entity
-    end
+    message = LoanService.delete_loan(@loan)
+    render json: message, status: :ok
+  rescue StandardError => e
+    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   private
-    def set_params
-      params.permit(:borrower_id, :lender_id, :amount, :interest, :purpose, :status, :repayment_till, :expected_return)
-    end
 
-    def set_loan
-      @loan = Loan.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: "Loan not found" }, status: :not_found
-    end
+  def loan_params
+    params.permit(:borrower_id, :lender_id, :amount, :interest, :purpose,
+                  :status, :repayment_till, :expected_return)
+  end
+
+  def set_loan
+    @loan = Loan.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: I18n.t("responses.loans.not_found") }, status: :not_found
+  end
 end
