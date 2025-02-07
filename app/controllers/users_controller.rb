@@ -1,22 +1,22 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create ]
+  skip_before_action :authenticate_request, only: [ :create, :index, :show]
   before_action :set_user, only: [ :show, :destroy, :update, :change_password ]
 
   # GET /users
   def index
     @users = User.all
-    render json: { users: @users }, each_serializer: UserSerializer, status: :ok
+    render json: @users , each_serializer: UserSerializer, status: :ok
   end
 
   # GET /users/{id}
   def show
-    render json: { user: @user }, serializer: UserSerializer, status: :ok
+    render json: @user , serializer: UserSerializer, status: :ok
   end
 
   # POST /users
   def create
     @user = UserService.create_user(user_params)
-    render json: { user: @user }, serializer: UserSerializer, status: :ok
+    render json: @user, serializer: UserSerializer, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   # UPDATE /users/{id}
   def update
     user = UserService.update_user(@user, user_params)
-    render json: { user: user }, serializer: UserSerializer, status: :ok
+    render json: user, serializer: UserSerializer, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end

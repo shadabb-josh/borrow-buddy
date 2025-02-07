@@ -3,16 +3,16 @@ class RepaymentsController < ApplicationController
 
   def index
     @repayments = Repayment.all
-    render json: { repayments:  @repayments }, status: :ok
+    render json: @repayments, status: :ok
   end
 
   def show
-    render json: { repayment: @repayment }, status: :ok
+    render json: @repayment, status: :ok
   end
 
   def create
     @repayment = RepaymentService.create_repayment(set_params)
-    render json: { repayment: @repayment }, status: :ok
+    render json: @repayment, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end

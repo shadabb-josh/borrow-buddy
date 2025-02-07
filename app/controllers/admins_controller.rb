@@ -5,18 +5,18 @@ class AdminsController < ApplicationController
   # GET /admins
   def index
     @admins = Admin.all
-    render json: { admins: @admins }, status: :ok
+    render json: @admins, status: :ok
   end
 
   # GET /admins/{id}
   def show
-    render json: { admin: @admin }, status: :ok
+    render json: @admin, status: :ok
   end
 
   # POST /admins
   def create
     @admin = AdminService.create_admin(admin_params)
-    render json: { admin: @admin }, status: :ok
+    render json: @admin, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end
@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
   # UPDATE /admins/{id}
   def update
     @admin = AdminService.update_admin(@admin, admin_params)
-    render json: { admin: @admin }, status: :ok
+    render json: @admin, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end

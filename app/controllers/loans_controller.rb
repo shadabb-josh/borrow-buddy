@@ -4,23 +4,23 @@ class LoansController < ApplicationController
 
   def index
     @loans = Loan.all
-    render json: { loans: @loans }, each_serializer: LoanSerializer, status: :ok
+    render json: @loans, each_serializer: LoanSerializer, status: :ok
   end
 
   def show
-    render json: { loan: @loan }, serializer: LoanSerializer, status: :ok
+    render json: @loan, serializer: LoanSerializer, status: :ok
   end
 
   def create
     @loan = LoanService.create_loan(loan_params)
-    render json: { loan:  @loan }, serializer: LoanSerializer, status: :ok
+    render json: @loan, serializer: LoanSerializer, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   def update
     loan = LoanService.update_loan(@loan, loan_params)
-    render json: { loan: loan }, serializer: LoanSerializer, status: :ok
+    render json: loan , serializer: LoanSerializer, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end

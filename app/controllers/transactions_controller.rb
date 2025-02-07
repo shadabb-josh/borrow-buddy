@@ -3,16 +3,16 @@ class TransactionsController < ApplicationController
 
   def index
     @transactions = Transaction.all
-    render json: { transactions: @transactions }, status: :ok
+    render json: @transactions, status: :ok
   end
 
   def show
-    render json: { transaction: @transaction }, status: :ok
+    render json: @transaction, status: :ok
   end
 
   def create
     @transaction = TransactionService.create_transaction(set_params)
-    render json: { transaction: @transaction }, status: :ok
+    render json: @transaction, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end
