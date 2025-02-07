@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
-  skip_before_action :authenticate_request, only: [:create]
-  before_action :set_admin, only: [:show, :destroy, :update]
+  skip_before_action :authenticate_request, only: [ :create ]
+  before_action :set_admin, only: [ :show, :destroy, :update ]
 
   # GET /admins
   def index
@@ -10,13 +10,13 @@ class AdminsController < ApplicationController
 
   # GET /admins/{id}
   def show
-    render json:{ admin: @admin }, status: :ok
+    render json: { admin: @admin }, status: :ok
   end
 
   # POST /admins
   def create
     @admin = AdminService.create_admin(admin_params)
-    render json:{ admin: @admin }, status: :ok
+    render json: { admin: @admin }, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end
@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
   # UPDATE /admins/{id}
   def update
     @admin = AdminService.update_admin(@admin, admin_params)
-    render json:{ admin: @admin }, status: :ok
+    render json: { admin: @admin }, status: :ok
   rescue StandardError => e
     render json: { errors: e.message }, status: :unprocessable_entity
   end
