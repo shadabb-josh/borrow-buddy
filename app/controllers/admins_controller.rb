@@ -15,26 +15,20 @@ class AdminsController < ApplicationController
 
   # POST /admins
   def create
-    @admin = AdminService.create_admin(admin_params)
+    @admin = AdminRegister.new(admin_params).create
     render json: @admin, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   # UPDATE /admins/{id}
   def update
-    @admin = AdminService.update_admin(@admin, admin_params)
+    @admin = AdminUpdate.new(admin_params).update
     render json: @admin, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   # DELETE /admins/{id}
   def destroy
-    message = AdminService.delete_admin(@admin)
+    message = AdminDestroy.new(admin_params).destroy
     render json: { message: message }, status: :ok
-  rescue StandardError => e
-    render json: { message: e.message }, status: :unprocessable_entity
   end
 
   private

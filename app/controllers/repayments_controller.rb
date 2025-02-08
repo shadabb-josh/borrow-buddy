@@ -11,14 +11,12 @@ class RepaymentsController < ApplicationController
   end
 
   def create
-    @repayment = RepaymentService.create_repayment(set_params)
+    @repayment = RepaymentCreator.new(repayment_params).create
     render json: @repayment, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   private
-    def set_params
+    def repayment_params
       params.permit(:loan_id, :amount_paid)
     end
 

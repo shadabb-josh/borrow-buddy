@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   include JsonWebToken
 
+  rescue_from StandardError, with: :handle_standard_error
   before_action :authenticate_request
 
   private
@@ -14,5 +15,9 @@ class ApplicationController < ActionController::API
       elsif decoded[:user_id]
         @current_user = User.find(id: decoded[:user_id])
       end
+    end
+
+    def handle_standard_error(exception)
+      render json: { errors: exception.message }, status: :unprocessable_entity
     end
 end

@@ -9,7 +9,8 @@ en:
       incorrect_password: "Incorrect Password"
     admins:
       incorrect_password: "Incorrect Password"
-      not_found: "Username not found"
+      not_found: "Admin not found"
+      deleted: "Admin deleted successfully"
     loans:
       not_found: "Loan not found"
       deleted: "Loan deleted successfully"

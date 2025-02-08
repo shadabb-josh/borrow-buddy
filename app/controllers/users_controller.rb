@@ -1,48 +1,40 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create, :index, :show]
+  skip_before_action :authenticate_request, only: [ :create ]
   before_action :set_user, only: [ :show, :destroy, :update, :change_password ]
 
   # GET /users
   def index
     @users = User.all
-    render json: @users , each_serializer: UserSerializer, status: :ok
+    render json: @users, each_serializer: UserSerializer, status: :ok
   end
 
   # GET /users/{id}
   def show
-    render json: @user , serializer: UserSerializer, status: :ok
+    render json: @user, serializer: UserSerializer, status: :ok
   end
 
   # POST /users
   def create
-    @user = UserService.create_user(user_params)
-    render json: @user, serializer: UserSerializer, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
+    user = UserRegister.new(user_params).create
+    render json: user, serializer: UserSerializer, status: :ok
   end
 
   # UPDATE /users/{id}
   def update
-    user = UserService.update_user(@user, user_params)
+    user = UserUpdate.new(@user, user_params).update
     render json: user, serializer: UserSerializer, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   # DELETE /users/{id}
   def destroy
-    message = UserService.delete_user(@user)
+    message = UserDestroy.new(@user).destroy
     render json: message, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   # PATCH /users/change_password
   def change_password
-    message = UserService.change_password(@user, change_password_params)
+    message = UserPasswordChange.new(@user, change_password_params).change_password
     render json: message, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   private

@@ -1,5 +1,5 @@
 class LoansController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create ]
+  skip_before_action :authenticate_request, only: [ :create, :index, :update, :destroy ]
   before_action :set_loan, only: [ :show, :update, :destroy ]
 
   def index
@@ -12,24 +12,18 @@ class LoansController < ApplicationController
   end
 
   def create
-    @loan = LoanService.create_loan(loan_params)
+    @loan = LoanCreater.new(loan_params).create
     render json: @loan, serializer: LoanSerializer, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   def update
-    loan = LoanService.update_loan(@loan, loan_params)
-    render json: loan , serializer: LoanSerializer, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
+    loan = LoanUpdate.new(@loan, loan_params).update
+    render json: loan, serializer: LoanSerializer, status: :ok
   end
 
   def destroy
-    message = LoanService.delete_loan(@loan)
+    message = LoanDestroy.new(@loan).destroy
     render json: message, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   private

@@ -11,14 +11,12 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = TransactionService.create_transaction(set_params)
+    @transaction = TransactionCreator.new(transaction_params).create
     render json: @transaction, status: :ok
-  rescue StandardError => e
-    render json: { errors: e.message }, status: :unprocessable_entity
   end
 
   private
-    def set_params
+    def transaction_params
       params.permit(:user_id, :loan_id, :amount, :transaction_type)
     end
 
