@@ -11,23 +11,18 @@ class RepaymentsController < ApplicationController
   end
 
   def create
-    @repayment = Repayment.create(set_params)
-    if @repayment.save
-      render json: @repayment, status: :ok
-    else
-      render json: { errors: @repayment.errors.full_messages },
-             status: :unprocessable_entity
-    end
+    @repayment = RepaymentCreator.new(repayment_params).call
+    render json: @repayment, status: :ok
   end
 
   private
-    def set_params
+    def repayment_params
       params.permit(:loan_id, :amount_paid)
     end
 
     def set_repayment
       @repayment = Repayment.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: { error: "Repayment not found" }, status: :not_found
+      render json: { error: I18n.t("responses.repayments.not_found") }, status: :not_found
     end
 end

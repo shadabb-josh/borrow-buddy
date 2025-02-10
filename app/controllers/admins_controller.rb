@@ -15,43 +15,31 @@ class AdminsController < ApplicationController
 
   # POST /admins
   def create
-    @admin = Admin.create(user_params)
-    if @admin.save
-      render json: @admin, status: :ok
-    else
-      render json: { errors: @admin.errors.full_messages },
-             status: :unprocessable_entity
-    end
+    @admin = AdminRegister.new(admin_params).call
+    render json: @admin, status: :ok
   end
 
   # UPDATE /admins/{id}
   def update
-    if @admin.update(user_params)
-      render json: @admin, status: :ok
-    end
-      render json: { errors: @admin.errors.full_messages },
-             status: :unprocessable_entity
+    @admin = AdminUpdate.new(admin_params).call
+    render json: @admin, status: :ok
   end
 
   # DELETE /admins/{id}
   def destroy
-    if @admin.destroy
-      render json: { message: "Admin deleted successfully" },
-      status: :ok
-    else
-      render json: { message: "Fail to delete admin" },
-      status: :unprocessable_entity
-    end
+    message = AdminDestroy.new(admin_params).call
+    render json: { message: message }, status: :ok
   end
 
   private
-    def user_params
-      params.permit(:username, :password)
-    end
 
-    def set_admin
-      @admin = Admin.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: "Admin not found" }, status: :not_found
-    end
+  def admin_params
+    params.permit(:username, :password)
+  end
+
+  def set_admin
+    @admin = Admin.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: I18n.t("admin.not_found") }, status: :not_found
+  end
 end
