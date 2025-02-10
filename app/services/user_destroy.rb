@@ -3,11 +3,12 @@ class UserDestroy
     @user = user
   end
 
-  def destroy
-    if @user.destroy
-      { 'message': I18n.t("responses.users.deleted") }
-    else
-      raise StandardError.new(@user.errors.full_messages.join(", "))
-    end
+  def call
+    return success_message if @user.destroy
+    raise StandardError.new(@user.errors.full_messages.join(", "))
+  end
+
+  def success_message
+    { 'message': I18n.t("user.deleted") }
   end
 end

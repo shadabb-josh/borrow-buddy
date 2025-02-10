@@ -3,13 +3,10 @@ class RepaymentCreator
     @repayment_params = repayment_params
   end
 
-  def create
+  def call
     repayment = Repayment.new(@repayment_params)
 
-    if repayment.save
-      repayment
-    else
-      raise StandardError.new(repayment.errors.full_messages)
-    end
+    return repayment if repayment.save
+    raise StandardError.new(repayment.errors.full_messages)
   end
 end

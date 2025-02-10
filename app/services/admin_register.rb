@@ -3,13 +3,9 @@ class AdminRegister
     @admin_params = admin_params
   end
 
-  def create
+  def call
     admin = Admin.new(@admin_params)
-
-    if admin.save
-      admin
-    else
-      raise StandardError.new(admin.errors.full_messages)
-    end
+    return admin if admin.save
+    raise StandardError.new(admin.errors.full_messages)
   end
 end

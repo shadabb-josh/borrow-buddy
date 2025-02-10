@@ -11,7 +11,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = TransactionCreator.new(transaction_params).create
+    @transaction = TransactionCreator.new(transaction_params).call
     render json: @transaction, status: :ok
   end
 
@@ -23,6 +23,6 @@ class TransactionsController < ApplicationController
     def set_transaction
       @transaction = Transaction.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: { error: I18n.t("responses.transactions.not_found") }, status: :not_found
+      render json: { error: I18n.t("transaction.not_found") }, status: :not_found
     end
 end

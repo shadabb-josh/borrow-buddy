@@ -3,13 +3,10 @@ class TransactionCreator
     @transaction_params = transaction_params
   end
 
-  def create
-    transaction = Transaction.new(@params)
+  def call
+    transaction = Transaction.new(@transaction_params)
 
-    if transaction.save
-      transaction
-    else
-      raise StandardError.new(transaction.errors.full_messages)
-    end
+    return transaction if transaction.save
+    raise StandardError.new(transaction.errors.full_messages)
   end
 end

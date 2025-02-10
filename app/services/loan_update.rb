@@ -4,11 +4,8 @@ class LoanUpdate
     @loan_params = loan_params
   end
 
-  def update
-    if @loan.update(@loan_params)
-      @loan
-    else
-      raise StandardError.new(user.errors.full_messages.join(", "))
-    end
+  def call
+    return @loan if @loan.update(@loan_params)
+    raise StandardError.new(user.errors.full_messages.join(", "))
   end
 end

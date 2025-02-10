@@ -4,11 +4,8 @@ class AdminUpdate
     @admin_params = admin_params
   end
 
-  def update
-    if @admin.update(@admin_params)
-      @admin
-    else
-      raise StandardError.new(@admin.errors.full_messages)
-    end
+  def call
+    return @admin if @admin.update(@admin_params)
+    raise StandardError.new(@admin.errors.full_messages)
   end
 end

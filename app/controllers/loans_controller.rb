@@ -12,17 +12,17 @@ class LoansController < ApplicationController
   end
 
   def create
-    @loan = LoanCreater.new(loan_params).create
+    @loan = LoanCreater.new(loan_params).call
     render json: @loan, serializer: LoanSerializer, status: :ok
   end
 
   def update
-    loan = LoanUpdate.new(@loan, loan_params).update
+    loan = LoanUpdate.new(@loan, loan_params).call
     render json: loan, serializer: LoanSerializer, status: :ok
   end
 
   def destroy
-    message = LoanDestroy.new(@loan).destroy
+    message = LoanDestroy.new(@loan).call
     render json: message, status: :ok
   end
 
@@ -36,6 +36,6 @@ class LoansController < ApplicationController
   def set_loan
     @loan = Loan.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: I18n.t("responses.loans.not_found") }, status: :not_found
+    render json: { error: I18n.t("loan.not_found") }, status: :not_found
   end
 end

@@ -15,19 +15,19 @@ class AdminsController < ApplicationController
 
   # POST /admins
   def create
-    @admin = AdminRegister.new(admin_params).create
+    @admin = AdminRegister.new(admin_params).call
     render json: @admin, status: :ok
   end
 
   # UPDATE /admins/{id}
   def update
-    @admin = AdminUpdate.new(admin_params).update
+    @admin = AdminUpdate.new(admin_params).call
     render json: @admin, status: :ok
   end
 
   # DELETE /admins/{id}
   def destroy
-    message = AdminDestroy.new(admin_params).destroy
+    message = AdminDestroy.new(admin_params).call
     render json: { message: message }, status: :ok
   end
 
@@ -40,6 +40,6 @@ class AdminsController < ApplicationController
   def set_admin
     @admin = Admin.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: I18n.t("responses.admins.not_found") }, status: :not_found
+    render json: { error: I18n.t("admin.not_found") }, status: :not_found
   end
 end

@@ -11,7 +11,7 @@ class RepaymentsController < ApplicationController
   end
 
   def create
-    @repayment = RepaymentCreator.new(repayment_params).create
+    @repayment = RepaymentCreator.new(repayment_params).call
     render json: @repayment, status: :ok
   end
 

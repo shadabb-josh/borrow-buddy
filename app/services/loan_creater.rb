@@ -3,13 +3,10 @@ class LoanCreater
     @loan_params = loan_params
   end
 
-  def create
+  def call
     loan = Loan.create(@loan_params)
 
-    if loan.save
-      loan
-    else
-      raise StandardError.new(loan.erros.full_messages.join(", "))
-    end
+    return loan if loan.save
+    raise StandardError.new(loan.erros.full_messages.join(", "))
   end
 end

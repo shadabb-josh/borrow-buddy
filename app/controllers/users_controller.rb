@@ -15,25 +15,25 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    user = UserRegister.new(user_params).create
+    user = UserRegister.new(user_params).call
     render json: user, serializer: UserSerializer, status: :ok
   end
 
   # UPDATE /users/{id}
   def update
-    user = UserUpdate.new(@user, user_params).update
+    user = UserUpdate.new(@user, user_params).call
     render json: user, serializer: UserSerializer, status: :ok
   end
 
   # DELETE /users/{id}
   def destroy
-    message = UserDestroy.new(@user).destroy
+    message = UserDestroy.new(@user).call
     render json: message, status: :ok
   end
 
   # PATCH /users/change_password
   def change_password
-    message = UserPasswordChange.new(@user, change_password_params).change_password
+    message = UserPasswordChange.new(@user, change_password_params).call
     render json: message, status: :ok
   end
 
@@ -51,6 +51,6 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { errors: I18n.t("responses.users.not_found") }, status: :not_found
+    render json: { errors: I18n.t("user.not_found") }, status: :not_found
   end
 end

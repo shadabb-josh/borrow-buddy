@@ -3,11 +3,14 @@ class LoanDestroy
     @loan = loan
   end
 
-  def destroy
-    if @loan.destroy
-      { 'message': I18n.t("responses.loans.deleted") }
-    else
-      raise StandardError.new(user.errors.full_messages.join(", "))
-    end
+  def call
+    return success_message if @loan.destroy
+    raise StandardError.new(user.errors.full_messages.join(", "))
+  end
+
+  private
+
+  def success_message
+    { 'message': I18n.t("loan.deleted") }
   end
 end

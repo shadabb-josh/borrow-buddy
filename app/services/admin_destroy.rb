@@ -3,11 +3,14 @@ class AdminDestroy
     @admin = admin
   end
 
-  def destroy
-    if @admin.destroy
-      { message: I18n.t("responses.admins.deleted") }
-    else
-      raise StandardError.new(@admin.errors.full_messages)
-    end
+  def call
+    return success_message if @admin.destroy
+    raise StandardError.new(@admin.errors.full_messages)
+  end
+
+  private
+
+  def success_message
+    { message: I18n.t("admin.deleted") }
   end
 end

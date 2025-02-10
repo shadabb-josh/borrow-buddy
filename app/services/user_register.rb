@@ -3,13 +3,10 @@ class UserRegister
     @user_params = user_params
   end
 
-  def create
+  def call
     user = User.new(@user_params)
 
-    if user.save
-      user
-    else
-      raise StandardError.new(user.errors.full_messages.join(", "))
-    end
+    return user if user.save
+    raise StandardError.new(user.errors.full_messages.join(", "))
   end
 end
