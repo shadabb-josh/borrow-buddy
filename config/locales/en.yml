@@ -1,19 +1,19 @@
 en:
-  users:
+  user:
     not_found: "User not found"
     email_not_found: "Email not found"
     deleted: "User deleted successfully"
     incorrect_old_password: "Incorrect old password"
     password_change: "Password change successfully"
     incorrect_password: "Incorrect Password"
-  admins:
+  admin:
     incorrect_password: "Incorrect Password"
     not_found: "Admin not found"
     deleted: "Admin deleted successfully"
-  loans:
+  loan:
     not_found: "Loan not found"
     deleted: "Loan deleted successfully"
-  transactions:
+  transaction:
     not_found: "Transaction not found"
-  repayments:
+  repayment:
     not_found: "Repayment not found"
