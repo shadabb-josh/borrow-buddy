@@ -7,8 +7,10 @@ class User < ApplicationRecord
 
   with_options unless: :skip_validations? do
     validates :first_name, :last_name, :email, presence: true
-    validates :pan_number, format: { with: PAN_REGEXP, message: "must be a valid PAN number" }, uniqueness: true, allow_nil: true
-    validates :adhaar_number, format: { with: ADHAAR_REGEXP, message: "must be a valid Aadhaar number" }, uniqueness: true, allow_nil: true
+    validates :pan_number, format: { with: PAN_REGEXP, message: I18n.t("user.must_be_a_valid_pan") },
+               uniqueness: true, allow_nil: true
+    validates :adhaar_number, format: { with: ADHAAR_REGEXP, message: I18n.t("user.must_be_a_valid_adhaar") },
+               uniqueness: true, allow_nil: true
     validates :status, inclusion: { in: [ "active", "deactive" ] }
   end
 

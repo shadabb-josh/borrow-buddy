@@ -7,13 +7,15 @@ en:
     password_change: "Password change successfully"
     incorrect_password: "Incorrect Password"
     password_reset_success: "Password reset successfully"
+    must_be_a_valid_pan: "must be a valid PAN number"
+    must_be_a_valid_adhaar: "must be a valid Aadhaar number"
   admin:
     incorrect_password: "Incorrect Password"
     not_found: "Admin not found"
     deleted: "Admin deleted successfully"
   loan:
     not_found: "Loan not found"
-    deleted: "Loan deleted successfully"
+    deleted: "Loan deleted successfully"  
   transaction:
     not_found: "Transaction not found"
   repayment:

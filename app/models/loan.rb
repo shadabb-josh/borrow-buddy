@@ -9,7 +9,7 @@ class Loan < ApplicationRecord
     target_date = repayment_till
     current_date = Date.today
     days = (target_date - current_date)
-    
+
     interest_amount = (amount * (interest / 100 / 365) * days).round(2)
     include_principle ? (amount + interest_amount).round(2) : interest_amount
   end
