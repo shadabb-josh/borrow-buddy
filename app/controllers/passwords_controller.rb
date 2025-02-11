@@ -16,6 +16,7 @@ class PasswordsController < ApplicationController
   def reset_password
       @user.skip_validations = true
       if @user.update(password: params[:new_password])
+        UserMailer.password_change(@user).deliver_later
         @user.clear_otp
         render json: { message: I18n.t("user.password_reset_success") }, status: :ok
       else

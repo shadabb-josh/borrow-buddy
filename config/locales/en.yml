@@ -21,6 +21,7 @@ en:
   email:
     welcome_subject: "Welcome to BorrowBuddy"
     reset_pass_subject: "Your OTP for Password Reset"
+    reset_pass_change_success_subject: "Your Password Has Been Reset"
   otp:
     verified: "OTP verified"
     not_verified: "OTP verification failed"
