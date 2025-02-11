@@ -1,12 +1,9 @@
 class PasswordsController < ApplicationController
   skip_before_action :authenticate_request, only: [ :verify_otp, :reset_password ]
-
   before_action :set_user, only: [ :verify_otp, :reset_password ]
 
   def verify_otp
-    received_otp = params[:otp]
-
-    if @user && @user.otp_valid?(received_otp)
+    if @user && @user.otp_valid?(params[:otp])
       render json: { message: I18n.t("otp.verified") }, status: :ok
     else
       render json: { message: I18n.t("otp.not_verified") }, status: :unprocessable_entity
@@ -16,7 +13,7 @@ class PasswordsController < ApplicationController
   def reset_password
       @user.skip_validations = true
       if @user.update(password: params[:new_password])
-        UserMailer.password_change(@user).deliver_later
+        UserMailer.password_reset(@user).deliver_later
         @user.clear_otp
         render json: { message: I18n.t("user.password_reset_success") }, status: :ok
       else
