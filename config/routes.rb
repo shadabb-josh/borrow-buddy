@@ -26,4 +26,9 @@ Rails.application.routes.draw do
   # Authentication Route
   post "auth/admin-login", to: "authenticate#admin_login"
   post "auth/user-login", to: "authenticate#user_login"
+
+  # OTP Route
+  post "user/send-otp", to: "otp#send_otp"
+  post "user/verify-otp", to: "passwords#verify_otp"
+  patch "user/reset-password", to: "passwords#reset_password"
 end

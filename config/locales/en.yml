@@ -6,6 +6,7 @@ en:
     incorrect_old_password: "Incorrect old password"
     password_change: "Password change successfully"
     incorrect_password: "Incorrect Password"
+    password_reset_success: "Password reset successfully"
   admin:
     incorrect_password: "Incorrect Password"
     not_found: "Admin not found"
@@ -17,3 +18,10 @@ en:
     not_found: "Transaction not found"
   repayment:
     not_found: "Repayment not found"
+  email:
+    welcome_subject: "Welcome to BorrowBuddy"
+    reset_pass_subject: "Your OTP for Password Reset"
+  otp:
+    verified: "OTP verified"
+    not_verified: "OTP verification failed"
+    sent: "OTP sent successfully"

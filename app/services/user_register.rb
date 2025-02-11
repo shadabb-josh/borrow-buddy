@@ -5,8 +5,11 @@ class UserRegister
 
   def call
     user = User.new(@user_params)
-
-    return user if user.save
+    user.skip_validations = true
+    if user.save
+      UserMailer.welcome_email(user).deliver_later
+      return user
+    end
     raise StandardError.new(user.errors.full_messages.join(", "))
   end
 end
