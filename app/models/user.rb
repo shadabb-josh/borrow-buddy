@@ -1,12 +1,17 @@
 class User < ApplicationRecord
   has_secure_password
+  has_secure_password :pin, validations: false
+
+  require "bcrypt"
 
   EMAIL_REGEXP = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\z/
   PAN_REGEXP = /\A[A-Z]{5}[0-9]{4}[A-Z]{1}\z/
   ADHAAR_REGEXP = /\A\d{12}\z/
 
   with_options unless: :skip_validations? do
-    validates :first_name, :last_name, :email, presence: true
+    validates :first_name, :last_name, :email, :account_number, :ifsc, :pin, :balance, presence: true
+    validates :account_number, uniqueness: true
+    validates :pin, length: { is: 4 }
     validates :pan_number, format: { with: PAN_REGEXP, message: I18n.t("user.must_be_a_valid_pan") },
                uniqueness: true, allow_nil: true
     validates :adhaar_number, format: { with: ADHAAR_REGEXP, message: I18n.t("user.must_be_a_valid_adhaar") },
@@ -14,7 +19,7 @@ class User < ApplicationRecord
     validates :status, inclusion: { in: [ "active", "deactive" ] }
   end
 
-  validates :email, format: { with: EMAIL_REGEXP, message: "must be a valid email" }, uniqueness: true
+  validates :email, format: { with: EMAIL_REGEXP, message: I18n.t("user.must_be_a_valid_email") }, uniqueness: true
 
   attr_accessor :skip_validations
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_28_055907) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_12_090603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_28_055907) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "account_number"
+    t.string "ifsc"
+    t.string "pin_digest"
+    t.decimal "balance"
   end
 
   add_foreign_key "loans", "users", column: "borrower_id"
