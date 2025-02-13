@@ -10,15 +10,7 @@ class TransactionsController < ApplicationController
     render json: @transaction, status: :ok
   end
 
-  def create
-    @transaction = TransactionCreator.new(transaction_params).call
-    render json: @transaction, status: :ok
-  end
-
   private
-    def transaction_params
-      params.permit(:user_id, :loan_id, :amount, :transaction_type)
-    end
 
     def set_transaction
       @transaction = Transaction.find(params[:id])

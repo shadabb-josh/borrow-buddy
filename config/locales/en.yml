@@ -29,3 +29,11 @@ en:
     verified: "OTP verified"
     not_verified: "OTP verification failed"
     sent: "OTP sent successfully"
+  bank:
+    invalid_pin: "Invalid Pin"
+    transaction_complete: "Transaction Complete"
+    sender_reciever_id_equal: "Sender and receiver cannot be the same"
+    account_not_active: "Both accounts must be active"
+    amount_not_numeric: "Amount must be a numeric value"
+    amount_negative: "Transaction amount must be positive"
+    insufficient_balance: "Insufficient balance"

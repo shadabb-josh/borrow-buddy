@@ -38,41 +38,8 @@ class UsersController < ApplicationController
   end
 
   def do_transaction
-    sender = User.find(transaction_params[:sender_id])
-    receiver = User.find(transaction_params[:receiver_id])
-    amount = transaction_params[:amount]
-    entered_pin = transaction_params[:entered_pin].to_s
-
-    if sender.id == receiver.id
-      return render json: { errors: "Sender and receiver cannot be the same" },
-      status: :unprocessable_entity
-    end
-
-    if sender.status != "active" || receiver.status != "active"
-      return render json: { errors: "Both accounts must be active" },
-      status: :unprocessable_entity
-    end
-
-    if amount <= 0
-      return render json: { errors: "Transaction amount must be positive" }, status: :unprocessable_entity
-    end
-
-    if sender.balance < amount
-      return render json: { errors: "Insufficient balance" }, status: :unprocessable_entity
-    end
-
-    unless sender.authenticate_pin(entered_pin)
-      return render json: { errors: "Invalid PIN" }, status: :unauthorized
-    end
-
-    ActiveRecord::Base.transaction do
-      sender.update_columns(balance: sender.balance - amount)
-      receiver.update_columns(balance: receiver.balance + amount)
-
-      Transaction.create(user_id: sender.id, loan_id: 10, amount: amount, transaction_type: 2)
-      Transaction.create(user_id: receiver.id, loan_id: 10, amount: amount, transaction_type: 0)
-    end
-    render json: { message: "Transaction Complete" }
+    message = TransactionCreator.new(transaction_params).call
+    render json: message, status: :ok
   end
 
   private
@@ -88,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   def transaction_params
-    params.permit(:sender_id, :receiver_id, :amount, :entered_pin)
+    params.permit(:sender_id, :receiver_id, :amount, :entered_pin, :loan_id)
   end
 
   def set_user
