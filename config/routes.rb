@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     member do
       patch :change_password
     end
+    collection do
+      patch :do_transaction
+    end
   end
   resources :loans
   resources :repayments

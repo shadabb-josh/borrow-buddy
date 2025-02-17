@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create ]
+  skip_before_action :authenticate_request, only: [ :create, :update ]
   before_action :set_user, only: [ :show, :destroy, :update, :change_password ]
 
   # GET /users
@@ -37,15 +37,25 @@ class UsersController < ApplicationController
     render json: message, status: :ok
   end
 
+  def do_transaction
+    message = TransactionCreator.new(transaction_params).call
+    render json: message, status: :ok
+  end
+
   private
 
   def user_params
     params.permit(:first_name, :last_name, :email, :password,
-                  :pan_number, :adhaar_number, :status)
+                  :pan_number, :adhaar_number, :status, :balance,
+                  :account_number, :ifsc, :pin)
   end
 
   def change_password_params
     params.permit(:old_password, :new_password)
+  end
+
+  def transaction_params
+    params.permit(:sender_id, :receiver_id, :amount, :entered_pin, :loan_id)
   end
 
   def set_user

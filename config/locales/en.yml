@@ -7,8 +7,9 @@ en:
     password_change: "Password change successfully"
     incorrect_password: "Incorrect Password"
     password_reset_success: "Password reset successfully"
-    must_be_a_valid_pan: "must be a valid PAN number"
-    must_be_a_valid_adhaar: "must be a valid Aadhaar number"
+    must_be_a_valid_pan: "Must be a valid PAN number"
+    must_be_a_valid_adhaar: "Must be a valid Aadhaar number"
+    must_be_a_valid_email: "Must be a valid email"
   admin:
     incorrect_password: "Incorrect Password"
     not_found: "Admin not found"
@@ -28,3 +29,11 @@ en:
     verified: "OTP verified"
     not_verified: "OTP verification failed"
     sent: "OTP sent successfully"
+  bank:
+    invalid_pin: "Invalid Pin"
+    transaction_complete: "Transaction Complete"
+    sender_reciever_id_equal: "Sender and receiver cannot be the same"
+    account_not_active: "Both accounts must be active"
+    amount_not_numeric: "Amount must be a numeric value"
+    amount_negative: "Transaction amount must be positive"
+    insufficient_balance: "Insufficient balance"
