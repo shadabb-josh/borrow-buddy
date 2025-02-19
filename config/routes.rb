@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # CRUD Routes
-  resources :admins
+  resources :admins do
+    collection do
+      get :platform_stats
+    end
+  end
   resources :users do
     member do
       patch :change_password

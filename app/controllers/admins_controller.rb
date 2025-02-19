@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create ]
+  skip_before_action :authenticate_request, only: [ :create, :platform_stats ]
   before_action :set_admin, only: [ :show, :destroy, :update ]
 
   # GET /admins
@@ -29,6 +29,11 @@ class AdminsController < ApplicationController
   def destroy
     message = AdminDestroy.new(admin_params).call
     render json: { message: message }, status: :ok
+  end
+
+  def platform_stats
+    stats = PlatformStats.new.call
+    render json: stats
   end
 
   private
