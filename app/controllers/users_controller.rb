@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create, :do_repayment ]
+  skip_before_action :authenticate_request, only: [ :create ]
   before_action :set_user, only: [ :show, :destroy, :update, :change_password ]
 
   # GET /users
