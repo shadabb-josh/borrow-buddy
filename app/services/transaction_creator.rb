@@ -7,7 +7,7 @@ class TransactionCreator
     @entered_pin = transaction_params[:entered_pin].to_s
   end
 
-  def call
+  def call(repayment = false)
     id_equal?
     amount_numeric?
 
@@ -28,7 +28,11 @@ class TransactionCreator
       Transaction.create(user_id: @sender.id, loan_id: @loan_id, amount: @amount, transaction_type: 2)
       Transaction.create(user_id: @receiver.id, loan_id: @loan_id, amount: @amount, transaction_type: 0)
     end
-    { message: I18n.t("bank.transaction_complete") }
+    if repayment
+      true
+    else
+      { message: I18n.t("bank.transaction_complete") }
+    end
   end
 
   private

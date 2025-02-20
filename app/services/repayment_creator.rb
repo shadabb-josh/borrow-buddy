@@ -1,12 +1,13 @@
 class RepaymentCreator
-  def initialize(repayment_params)
-    @repayment_params = repayment_params
+  def initialize(transaction_params)
+    @transaction_params = transaction_params
   end
 
   def call
-    repayment = Repayment.new(@repayment_params)
-
-    return repayment if repayment.save
-    raise StandardError.new(repayment.errors.full_messages)
+    transaction_completed = TransactionCreator.new(@transaction_params).call(true)
+    if transaction_completed
+      Repayment.create(loan_id: @transaction_params[:loan_id], amount_paid: @transaction_params[:amount])
+      { message: "Repayment Successfull" }
+    end
   end
 end

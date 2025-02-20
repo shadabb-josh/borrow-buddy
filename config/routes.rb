@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     end
     collection do
       patch :do_transaction
+      patch :do_repayment
     end
   end
   resources :loans

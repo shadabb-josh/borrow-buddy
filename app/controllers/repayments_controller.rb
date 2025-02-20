@@ -10,15 +10,7 @@ class RepaymentsController < ApplicationController
     render json: @repayment, status: :ok
   end
 
-  def create
-    @repayment = RepaymentCreator.new(repayment_params).call
-    render json: @repayment, status: :ok
-  end
-
   private
-    def repayment_params
-      params.permit(:loan_id, :amount_paid)
-    end
 
     def set_repayment
       @repayment = Repayment.find(params[:id])
