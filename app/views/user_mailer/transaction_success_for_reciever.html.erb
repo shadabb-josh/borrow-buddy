@@ -1,0 +1,15 @@
+<h2>You've Received a Payment! 💰</h2>
+    
+<p>Dear <%= @recipient.first_name %>,</p>
+
+<p>Good news! You’ve received a payment from <strong><%= @sender_name %></strong>. Here are the details:</p>
+
+<ul>
+  <li><strong>Amount:</strong> ₹<%= @amount %></li>
+  <li><strong>Sender:</strong> <%= @sender_name %></li>
+</ul>
+
+<p>You can check your updated balance in your BorrowBuddy account. If you have any questions, feel free to reach out.</p>
+
+<p><strong>Happy Borrowing!</strong><br>
+The BorrowBuddy Team</p>

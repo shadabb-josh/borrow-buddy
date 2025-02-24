@@ -1,0 +1,12 @@
+<h2>Transaction Failed </h2>
+
+<p>Dear <%= @sender.first_name %>,</p>
+
+<p>We regret to inform you that your transaction to <strong><%= @recipient_name %></strong> for ₹<%= @amount %> was unsuccessful.</p>
+
+<p><strong>Reason:</strong> <%= @reason %></p>
+
+<p>Please verify your payment details and try again. If the issue persists, contact our support team for assistance.</p>
+
+<p><strong>Best regards,</strong><br>
+The BorrowBuddy Team</p>

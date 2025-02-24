@@ -25,6 +25,13 @@ en:
     welcome_subject: "Welcome to BorrowBuddy"
     reset_pass_subject: "Your OTP for Password Reset"
     reset_pass_change_success_subject: "Your Password Has Been Reset"
+    transaction_alert: "Transaction Alert"
+    payment_recieved: "You've Received a Payment!"
+    transaction_failed: "Transactuion failed"
+    loan_application_submit: "Loan application submitted!"
+    loan_approved: "Loan Approved"
+    loan_funded: "Loan Funded"
+    loan_repaid: "Loan Repaid"
   otp:
     verified: "OTP verified"
     not_verified: "OTP verification failed"
