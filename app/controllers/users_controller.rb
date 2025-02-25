@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create, :update ]
+  skip_before_action :authenticate_request, only: [ :create, :do_transaction, :do_repayment ]
   before_action :set_user, only: [ :show, :destroy, :update, :change_password ]
 
   # GET /users
@@ -39,6 +39,11 @@ class UsersController < ApplicationController
 
   def do_transaction
     message = TransactionCreator.new(transaction_params).call
+    render json: message, status: :ok
+  end
+
+  def do_repayment
+    message = RepaymentCreator.new(transaction_params).call
     render json: message, status: :ok
   end
 
