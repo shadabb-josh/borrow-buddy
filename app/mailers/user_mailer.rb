@@ -64,4 +64,10 @@ class UserMailer < ApplicationMailer
     @status = status
     mail(to: @borrower.email, subject: I18n.t("email.loan_repaid"))
   end
+
+  def loan_repaid_for_lender(lender, loan)
+    @lender = lender
+    @loan = loan
+    mail(to: @lender.email, subject: I18n.t("email.loan_repaid"))
+  end
 end

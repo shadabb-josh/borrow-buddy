@@ -17,4 +17,12 @@ class Loan < ApplicationRecord
   def platform_fee
     (calculate_returns(repayment_till, amount, interest) * 0.02).round(2)
   end
+
+  def expected_return
+    (calculate_returns(repayment_till, amount, interest))
+  end
+
+  def total_return
+    (calculate_returns(repayment_till, amount, interest, true)) - platform_fee
+  end
 end
