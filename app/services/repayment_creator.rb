@@ -9,7 +9,7 @@ class RepaymentCreator
     transaction_completed = TransactionCreator.new(@transaction_params).call(true)
     if transaction_completed
       Repayment.create(loan_id: @transaction_params[:loan_id], amount_paid: @transaction_params[:amount])
-      UserMailer.loan_repaid_for_lender(@lender, @loan).deliver_later
+      UserMailer.loan_repaid_for_lender(@lender, @loan).deliver_now
       { message: "Repayment Successfull" }
     end
   end
