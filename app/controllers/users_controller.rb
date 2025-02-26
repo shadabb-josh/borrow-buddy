@@ -50,17 +50,17 @@ class UsersController < ApplicationController
   end
 
   def get_all_transactions
-    transactions = TransactionByUsers.new(@user).transactions_by_users
+    transactions = TransactionByUsers.new(@user).call
     render json: transactions, status: :ok
   end
 
   def get_all_lended_loans
-    loans = LoansLendByUser.new(@user).all_lended_loans
+    loans = LoansLendByUser.new(@user).call
     render json: loans, status: :ok
   end
 
   def get_all_borrowed_loans
-    loans = LoansBorrowedByUser.new(@user).all_borrowed_loans
+    loans = LoansBorrowedByUser.new(@user).call
     render json: loans, status: :ok
   end
 

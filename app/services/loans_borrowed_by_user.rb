@@ -3,7 +3,7 @@ class LoansBorrowedByUser
     @user_id = user.id
   end
 
-  def all_borrowed_loans
+  def call
     @loans = Loan.where(borrower_id: @user_id)
   end
 end
