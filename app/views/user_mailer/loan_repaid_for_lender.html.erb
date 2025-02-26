@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Loan Repayment Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif; color: #333;">
+  <p>Dear <%= @lender.first_name %>,</p>
+
+  <p>We are pleased to inform you that the loan with Loan ID <strong><%= @loan.id %></strong> has been successfully repaid. Below are the repayment details:</p>
+
+  <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>Loan Amount:</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;">₹<%= @loan.amount %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>Expected Return:</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;">₹<%= @loan.expected_return %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>Platform Fee:</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;">₹<%= @loan.platform_fee %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px; border: 1px solid #ddd;"><strong>Total Return (After Fee):</strong></td>
+      <td style="padding: 8px; border: 1px solid #ddd;">₹<%= @loan.total_return %></td>
+    </tr>
+  </table>
+
+  <p>The repayment has been credited to your account. Thank you for using BorrowBuddy for your lending needs.</p>
+
+  <p>For any queries, feel free to reach out to our support team.</p>
+
+  <p>Best regards,</p>
+  <strong>The BorrowBuddy Team</strong>
+</body>
+</html>

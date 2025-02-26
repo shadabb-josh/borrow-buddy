@@ -64,4 +64,13 @@ class UserMailer < ApplicationMailer
     @status = status
     mail(to: @borrower.email, subject: I18n.t("email.loan_repaid"))
   end
+
+  def loan_repaid_for_lender(lender, loan)
+    @lender = lender
+    @loan = loan
+
+    pdf = RepaymentPdfGenerator.new(@lender, @loan).generate
+    attachments["Repayment_Confirmation_Loan_#{@loan.id}.pdf"] = pdf
+    mail(to: @lender.email, subject: I18n.t("email.loan_repaid"))
+  end
 end
