@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create, :do_transaction, :do_repayment ]
-  before_action :set_user, only: [ :show, :destroy, :update, :change_password ]
+  skip_before_action :authenticate_request, only: [ :create ]
+  before_action :set_user, only: [ :show, :destroy, :update,
+                                   :change_password, :get_all_transactions,
+                                   :get_all_lended_loans, :get_all_borrowed_loans ]
 
   # GET /users
   def index
@@ -10,7 +12,7 @@ class UsersController < ApplicationController
 
   # GET /users/{id}
   def show
-    render json: @user, serializer: UserSerializer, status: :ok
+    render json: @user, serializer: UserSerializer, status: :okx
   end
 
   # POST /users
@@ -45,6 +47,21 @@ class UsersController < ApplicationController
   def do_repayment
     message = RepaymentCreator.new(transaction_params).call
     render json: message, status: :ok
+  end
+
+  def get_all_transactions
+    transactions = TransactionByUsers.new(@user).transactions_by_users
+    render json: transactions, status: :ok
+  end
+
+  def get_all_lended_loans
+    loans = LoansLendByUser.new(@user).all_lended_loans
+    render json: loans, status: :ok
+  end
+
+  def get_all_borrowed_loans
+    loans = LoansBorrowedByUser.new(@user).all_borrowed_loans
+    render json: loans, status: :ok
   end
 
   private
