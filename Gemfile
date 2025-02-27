@@ -34,6 +34,13 @@ gem "active_model_serializers"
 # PDF
 gem "prawn"
 gem "prawn-table"
+
+# Sidekiq
+gem "sidekiq"
+
+# Sidekiq-Cron
+gem "sidekiq-cron"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
