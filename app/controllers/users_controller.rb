@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   # GET /users/{id}
   def show
-    render json: @user, serializer: UserSerializer, status: :okx
+    render json: @user, serializer: UserSerializer, status: :ok
   end
 
   # POST /users
