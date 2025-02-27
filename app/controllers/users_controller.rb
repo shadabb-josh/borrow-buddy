@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [ :create ]
   before_action :set_user, only: [ :show, :destroy, :update,
                                    :change_password, :get_all_transactions,
-                                   :get_all_lended_loans, :get_all_borrowed_loans ]
+                                   :get_all_lended_loans, :get_all_borrowed_loans,
+                                   :get_all_approved_loans ]
 
   # GET /users
   def index
@@ -61,6 +62,11 @@ class UsersController < ApplicationController
 
   def get_all_borrowed_loans
     loans = LoansBorrowedByUser.new(@user).call
+    render json: loans, status: :ok
+  end
+
+  def get_all_approved_loans
+    loans = LoansApprovedByUser.new(@user).call
     render json: loans, status: :ok
   end
 

@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       post :get_all_transactions
       post :get_all_lended_loans
       post :get_all_borrowed_loans
+      post :get_all_approved_loans
     end
   end
   resources :loans
