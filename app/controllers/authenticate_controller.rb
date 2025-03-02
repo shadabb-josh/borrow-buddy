@@ -22,7 +22,7 @@ class AuthenticateController < ApplicationController
     @user = User.find_by(email: params[:email])
 
     if @user.nil?
-      return render json: { error: "user.email_not_found" }, status: :not_found
+      return render json: { error: I18n.t("user.email_not_found") }, status: :not_found
     end
 
     if @user&.authenticate(params[:password])
