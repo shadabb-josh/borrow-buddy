@@ -41,3 +41,13 @@ development:
   host: localhost 
   username: postgres
   password: postgres
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: borrow_buddy_test
+  port: 5432
+  pool: 5
+  host: localhost 
+  username: postgres
+  password: postgres

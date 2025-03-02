@@ -5,7 +5,7 @@ class LoanDestroy
 
   def call
     return success_message if @loan.destroy
-    raise StandardError.new(user.errors.full_messages.join(", "))
+    raise StandardError.new(@loan.errors.full_messages.join(", "))
   end
 
   private

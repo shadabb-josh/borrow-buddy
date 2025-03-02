@@ -1,4 +1,8 @@
 class Loan < ApplicationRecord
+  # Associations
+  belongs_to :borrower, class_name: "User"
+  belongs_to :lender, class_name: "User"
+
   # Validations
   validates :borrower_id, :lender_id, :amount, :interest, :purpose, :repayment_till, :status, presence: true
 
