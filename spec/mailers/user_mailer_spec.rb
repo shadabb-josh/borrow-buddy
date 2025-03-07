@@ -11,7 +11,7 @@ RSpec.describe UserMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq(I18n.t("email.welcome_subject"))
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["from@example.com"])  # Updated based on error log
+      expect(mail.from).to eq(["from@example.com"])
     end
   end
 

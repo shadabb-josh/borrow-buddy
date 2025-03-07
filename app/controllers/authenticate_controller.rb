@@ -27,7 +27,7 @@ class AuthenticateController < ApplicationController
 
     if @user&.authenticate(params[:password])
       token = jwt_encode(user_id: @user.id)
-      render json: { token: token }, status: :ok
+      render json: { id: @user.id, token: token }, status: :ok
     else
       render json: { error: I18n.t("user.incorrect_password") }, status: :unauthorized
     end

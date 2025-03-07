@@ -25,8 +25,8 @@
         @sender.update_columns(balance: @sender.balance - @amount)
         @receiver.update_columns(balance: @receiver.balance + @amount)
 
-        Transaction.create(user_id: @sender.id, loan_id: @loan_id, amount: @amount, transaction_type: 2)
-        Transaction.create(user_id: @receiver.id, loan_id: @loan_id, amount: @amount, transaction_type: 0)
+        Transaction.create(user_id: @sender.id, loan_id: @loan_id, amount: @amount, transaction_type: 0)
+        Transaction.create(user_id: @receiver.id, loan_id: @loan_id, amount: @amount, transaction_type: 1)
 
         UserMailer.transaction_success_for_sender(@sender, @amount, @receiver).deliver_later
         UserMailer.transaction_success_for_reciever(@receiver, @amount, @sender).deliver_later

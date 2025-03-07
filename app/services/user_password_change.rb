@@ -9,9 +9,8 @@ class UserPasswordChange
     unless @user.authenticate(@old_password)
       raise StandardError.new(I18n.t("user.incorrect_old_password"))
     end
-
-    return success_message if @user.update(password: @new_password)
-    raise StandardError.new(@user.errors.full_messages.join(", "))
+    return success_message if @user.update_column(:password_digest, BCrypt::Password.create(@new_password))
+    raise StandardError.new(I18n.t("user.password_update_failed"))
   end
 
   private

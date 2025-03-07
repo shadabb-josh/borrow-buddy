@@ -1,10 +1,10 @@
 class Loan < ApplicationRecord
   # Associations
   belongs_to :borrower, class_name: "User"
-  belongs_to :lender, class_name: "User"
+  belongs_to :lender, class_name: "User", optional: true
 
   # Validations
-  validates :borrower_id, :lender_id, :amount, :interest, :purpose, :repayment_till, :status, presence: true
+  validates :borrower_id, :amount, :interest, :purpose, :repayment_till, :status, presence: true
 
   # Enum for loan status
   enum status: { pending: 0, approved: 1, funded: 2, repaid: 3 }

@@ -3,6 +3,6 @@ FactoryBot.define do
     association :user
     association :loan
     amount { 1000 }
-    transaction_type { :deposit }  # Set a default valid type
+    transaction_type { :debit }
   end
 end

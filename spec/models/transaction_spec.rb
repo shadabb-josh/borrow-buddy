@@ -16,10 +16,8 @@ RSpec.describe Transaction, type: :model do
   describe "Enums" do
     it "should have correct transaction types" do
       expect(Transaction.transaction_types).to eq({
-        "deposit" => 0,
-        "withdrawal" => 1,
-        "investment" => 2,
-        "repayment" => 3
+        "debit" => 0,
+        "credit" => 1
       })
     end
   end

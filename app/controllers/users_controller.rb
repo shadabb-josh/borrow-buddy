@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create ]
+  skip_before_action :authenticate_request, only: [ :create, :update, :change_password ]
   before_action :set_user, only: [ :show, :destroy, :update,
                                    :change_password, :get_all_transactions,
                                    :get_all_lended_loans, :get_all_borrowed_loans,

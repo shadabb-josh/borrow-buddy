@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :admins do
     collection do
       get :platform_stats
+      get :loan_distributions
     end
   end
   resources :users do

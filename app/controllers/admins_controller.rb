@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :create, :platform_stats ]
+  skip_before_action :authenticate_request, only: [ :create, :loan_distributions]
   before_action :set_admin, only: [ :show, :destroy, :update ]
 
   # GET /admins
@@ -34,6 +34,11 @@ class AdminsController < ApplicationController
   def platform_stats
     stats = PlatformStats.new.call
     render json: stats
+  end
+
+  def loan_distributions
+    distributions = LoanDistribution.new.call
+    render json: distributions
   end
 
   private
