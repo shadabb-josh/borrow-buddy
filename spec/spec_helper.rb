@@ -1,8 +1,14 @@
 require "simplecov"
-SimpleCov.start "rails" do
+SimpleCov.start do
   add_filter "/spec/"
   add_filter "/config/"
   add_filter "/vendor/"
+  add_group "Models", "app/models"
+  add_group "Controllers", "app/controllers"
+  add_group "Services", "app/services"
+  add_group "Mailers", "app/mailers"
+  add_group "Jobs", "app/jobs"
+  add_group "Concerns", "app/controllers/concerns"
 end
 
 RSpec.configure do |config|
@@ -26,9 +32,7 @@ RSpec.configure do |config|
   config.disable_monkey_patching!
 
   # Use documentation format for detailed output when running a single spec file
-  if config.files_to_run.one?
-    config.default_formatter = "doc"
-  end
+  config.default_formatter = "doc" if config.files_to_run.one?
 
   # Show the slowest 10 examples at the end of the test run
   config.profile_examples = 10

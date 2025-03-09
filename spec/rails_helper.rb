@@ -2,6 +2,7 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
+
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
@@ -19,7 +20,7 @@ RSpec.configure do |config|
 
   # Setup DatabaseCleaner
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation) # Ensure a clean test DB before running tests
+    DatabaseCleaner.clean_with(:deletion) # Faster than truncation
   end
 
   config.before(:each) do
@@ -27,15 +28,15 @@ RSpec.configure do |config|
   end
 
   config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation # Required for JS tests
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.around(:each) do |example|
     DatabaseCleaner.cleaning { example.run }
   end
 
-  # Use transactional fixtures
-  config.use_transactional_fixtures = true
+  # Disable transactional fixtures to avoid conflicts with DatabaseCleaner
+  config.use_transactional_fixtures = false
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
