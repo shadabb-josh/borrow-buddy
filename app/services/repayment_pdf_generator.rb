@@ -7,7 +7,7 @@ class RepaymentPdfGenerator
     @loan = loan
   end
 
-  def generate
+  def call
     Prawn::Document.new do |pdf|
       pdf.text "Loan Repayment Confirmation", size: 18, style: :bold
       pdf.move_down 10

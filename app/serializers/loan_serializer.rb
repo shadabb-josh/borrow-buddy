@@ -5,7 +5,7 @@ class LoanSerializer < ActiveModel::Serializer
 
   # (Total Return Principle Amount + Interest) - Platform Fee
   def total_return
-    object.calculate_returns(object.repayment_till, object.amount, object.interest, true) - platform_fee
+    (object.calculate_returns(object.repayment_till, object.amount, object.interest, true) - platform_fee).round(2)
   end
 
   # Interest on Principle Amount

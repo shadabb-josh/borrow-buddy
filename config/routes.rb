@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :admins do
     collection do
       get :platform_stats
+      get :loan_distributions
     end
   end
   resources :users do
@@ -25,6 +26,10 @@ Rails.application.routes.draw do
     collection do
       patch :do_transaction
       patch :do_repayment
+      post :get_all_transactions
+      post :get_all_lended_loans
+      post :get_all_borrowed_loans
+      post :get_all_approved_loans
     end
   end
   resources :loans

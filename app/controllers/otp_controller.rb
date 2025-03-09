@@ -10,7 +10,8 @@ class OtpController < ApplicationController
   private
   def set_user
     @user = User.find_by(email: params[:email])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: I18n.t("user.not_found") }, status: :not_found
+    unless @user
+      render json: { errors: I18n.t("user.not_found") }, status: :unprocessable_entity
+    end
   end
 end
