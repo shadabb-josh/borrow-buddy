@@ -44,4 +44,6 @@ Rails.application.routes.draw do
   post "user/send-otp", to: "otp#send_otp"
   post "user/verify-otp", to: "passwords#verify_otp"
   patch "user/reset-password", to: "passwords#reset_password"
+
+  root to: proc { [ 200, {}, [ "BorrowBuddy API is live!" ] ] }
 end
